@@ -26,7 +26,8 @@ class Game {
     // Interests PART
     playersShareInterests()
     
-    // Display
+    // Display interests PART
+    displayInterest()
     
     print("\n- THE END -")
   }
@@ -42,8 +43,6 @@ class Game {
       }
     }
   }
-  
-  //
   
   // Name PART
   private func getName(count: Int, uniqueNames: [String]) -> String {
@@ -92,35 +91,34 @@ class Game {
   // Interests PART
   func playersShareInterests() {
     var peopleReady = [Person]()
-    for _ in 0..<people.count {
+    // Give people random max number of interests
+    for person in people {
+      person.numberInterests = Int(arc4random_uniform(kNumberMaxInterests) + 1)
+    }
+    // Chose a random person and give him a random interest
+    while people.count > 0 {
       let personIndex = Int(arc4random_uniform(UInt32(people.count)))
-      let interestCount = arc4random_uniform(kNumberMaxInterests) + 1
-      let person = people.remove(at: personIndex)
-      print("\nPlayer: \(person.name) - InterestCount: \(interestCount)")
-      Comment.reload()
-      
-      for _ in 1...interestCount {
-        let interestIndex = Int(arc4random_uniform(UInt32(person.unsharedInterests.count)))
-        let kindInterest = person.unsharedInterests.remove(at: interestIndex)
-        if let comment = Comment.getRandom() {
-          let interest = Interest(title: kindInterest, comment: comment)
-          person.sharedInterests[kindInterest] = interest
-          print("Interest:\n \(interest.title.rawValue):\n \(interest.comment)")
-        }
+      let person = people[personIndex]
+      let interestIndex = Int(arc4random_uniform(UInt32(person.unsharedInterestTitles.count)))
+      let title = person.unsharedInterestTitles.remove(at: interestIndex)
+      let comment = Comment.getRandom()
+      let interest = Interest(title: title, comment: comment)
+      person.sharedInterests[title] = interest
+      // Make sure the random person does not go over max number of interests
+      if person.numberInterests == person.sharedInterests.count {
+        peopleReady.append(people.remove(at: personIndex))
       }
-      peopleReady.append(person)
     }
     people = peopleReady
   }
   
-  // Display unshared interests
-  func displayUnsharedInterest(person: Person) {
-    if person.sharedInterests.count > 0 {
-      print("\t--> #0: No additional interest")
-    }
-    let unsharedInterests = person.unsharedInterests
-    for index in 0..<unsharedInterests.count {
-      print("\t--> #\(index+1): \(unsharedInterests[index].rawValue)")
+  // Display interests PART
+  func displayInterest() {
+    for person in people {
+      print("\nPlayer: \(person.name)")
+      for (title, interest) in person.sharedInterests {
+        print("\t--> \(title.rawValue):\n\t\(interest.comment)")
+      }
     }
   }
   

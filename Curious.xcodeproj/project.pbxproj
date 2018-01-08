@@ -13,7 +13,7 @@
 		596245F91FF021F800532937 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596245F81FF021F800532937 /* main.swift */; };
 		596246021FF0329F00532937 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596246011FF0329F00532937 /* Person.swift */; };
 		596246041FF032AA00532937 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596246031FF032AA00532937 /* Interest.swift */; };
-		59806F1F1FFC6D28005A8348 /* Kind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59806F1E1FFC6D28005A8348 /* Kind.swift */; };
+		59806F1F1FFC6D28005A8348 /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59806F1E1FFC6D28005A8348 /* Title.swift */; };
 		59F1F89A1FF0682000F50022 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F1F8991FF0682000F50022 /* Game.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +37,7 @@
 		596245F81FF021F800532937 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		596246011FF0329F00532937 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		596246031FF032AA00532937 /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
-		59806F1E1FFC6D28005A8348 /* Kind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kind.swift; sourceTree = "<group>"; };
+		59806F1E1FFC6D28005A8348 /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		59F1F8991FF0682000F50022 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,7 +99,7 @@
 		59799A941FF31E4900614959 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				59806F1E1FFC6D28005A8348 /* Kind.swift */,
+				59806F1E1FFC6D28005A8348 /* Title.swift */,
 				595268371FFEBC0B00FDF889 /* Comment.swift */,
 				595268331FFEAD5F00FDF889 /* Name.swift */,
 				595268351FFEB19900FDF889 /* Job.swift */,
@@ -172,7 +172,7 @@
 				596246021FF0329F00532937 /* Person.swift in Sources */,
 				596245F91FF021F800532937 /* main.swift in Sources */,
 				59F1F89A1FF0682000F50022 /* Game.swift in Sources */,
-				59806F1F1FFC6D28005A8348 /* Kind.swift in Sources */,
+				59806F1F1FFC6D28005A8348 /* Title.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

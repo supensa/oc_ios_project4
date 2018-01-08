@@ -9,8 +9,9 @@
 import Foundation
 
 class Person {
-  var sharedInterests: [Kind : Interest]
-  var unsharedInterests: [Kind] = Kind.getAll()
+  var numberInterests = 0
+  var sharedInterests = [Title : Interest]()
+  var unsharedInterestTitles: [Title] = Title.getAll()
   
   private(set) var name: String
   private(set) var jobTitle: String
@@ -18,6 +19,5 @@ class Person {
   init(name n: String, jobTitle j: String) {
     name = n.capitalized
     jobTitle = j
-    sharedInterests = [Kind : Interest]()
   }
 }

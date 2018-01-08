@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Kind: String {
+enum Title: String {
   case ios = "iOS developement"
   case android = "Android development"
   case mandarin = "Learning Mandarin"
@@ -20,7 +20,7 @@ enum Kind: String {
   case dancing = "Dancing"
   case writting = "Writing"
   
-  static func getAll() -> [Kind] {
+  static func getAll() -> [Title] {
     return [
       .ios,
       .android,

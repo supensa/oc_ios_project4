@@ -10,10 +10,10 @@ import Foundation
 
 struct Interest {
   
-  var title: Kind
+  var title: Title
   var comment: String
   
-  init(title: Kind, comment: String) {
+  init(title: Title, comment: String) {
     self.title = title
     self.comment = comment
   }
