@@ -29,12 +29,21 @@ class Game {
     // Display interests PART
     displayInterest()
     
+    // Generate pairings
+    pairPlayers()
+    
     print("\n- THE END -")
+  }
+  
+  // Generate parings
+  private func pairPlayers() {
+    // TODO in the future
   }
   
   // Introduction PART
   private func playersIntroduction() {
-    let countPlayers = Int(arc4random_uniform(kNumberMaxPlayers - 1) + 2)
+    var countPlayers = Int(arc4random_uniform(kNumberMaxPlayers - 1) + 2)
+    if countPlayers % 2 != 0 { countPlayers += 1 }
     for _ in 1...countPlayers {
       let name = Name.getRandom()
       let jobTitle = Job.getRandom()
@@ -117,7 +126,7 @@ class Game {
     for person in people {
       print("\nPlayer: \(person.name)")
       for (title, interest) in person.sharedInterests {
-        print("\t--> \(title.rawValue):\n\t\(interest.comment)")
+        print("\t--> \(title.rawValue):\n\t\t\(interest.comment)")
       }
     }
   }
