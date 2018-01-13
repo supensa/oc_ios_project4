@@ -8,9 +8,9 @@
 
 import Foundation
 
-class Job {
+class Job: Random {
   
-  static private var titles = [
+  private var titles = [
     "Fire fighter",
     "Postman",
     "Policeman",
@@ -25,8 +25,7 @@ class Job {
     "Chief Executive Officer"
   ]
   
-  static func getRandom() -> String {
-    let index = Int(arc4random_uniform(UInt32(titles.count)))
-    return titles[index]
+  init() {
+    super.init(array: titles)
   }
 }

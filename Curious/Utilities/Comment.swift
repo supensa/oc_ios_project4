@@ -8,9 +8,9 @@
 
 import Foundation
 
-class Comment {
+class Comment: Random {
   
-  static private var comments = [
+  private var comments  = [
     "It helps me relax",
     "I become more inspired",
     "It helps me to clear my mind",
@@ -25,8 +25,7 @@ class Comment {
     "I can relieve my stress with this activity"
   ]
   
-  static func getRandom() -> String {
-    let index = Int(arc4random_uniform(UInt32(comments.count)))
-    return comments[index]
+  init() {
+    super.init(array: comments)
   }
 }

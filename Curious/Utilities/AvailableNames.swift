@@ -1,5 +1,5 @@
 //
-//  Name.swift
+//  AvailableNames.swift
 //  Curious
 //
 //  Created by Spencer Forrest on 04/01/2018.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class Name {
+class AvailableNames: Random {
   
-  static private var names = [
+  private var names = [
     "John",
     "Marcos",
     "Alicia",
@@ -20,14 +20,12 @@ class Name {
     "Gabriella",
     "Joanna",
     "Joey",
-    "念恩",
+    "Fred",
     "William",
     "Jason"
   ]
   
-  static func getRandom() -> String? {
-    if names.isEmpty { return nil }
-    let index = Int(arc4random_uniform(UInt32(names.count)))
-    return names.remove(at: index)
+  init() {
+    super.init(array: names)
   }
 }

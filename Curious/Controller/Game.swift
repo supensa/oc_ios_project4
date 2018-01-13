@@ -29,26 +29,32 @@ class Game {
     // Display interests PART
     displayInterest()
     
-    // Generate pairings
+    // Generate pairs
     pairPlayers()
     
     print("\n- THE END -")
   }
   
-  // Generate parings
+  // Generate pairs
   private func pairPlayers() {
-    // TODO in the future
+    
   }
   
   // Introduction PART
   private func playersIntroduction() {
     var countPlayers = Int(arc4random_uniform(kNumberMaxPlayers - 1) + 2)
+    // Can be paired with different players. No need for even numbers.
     if countPlayers % 2 != 0 { countPlayers += 1 }
+    let availableNames = AvailableNames()
     for _ in 1...countPlayers {
-      let name = Name.getRandom()
-      let jobTitle = Job.getRandom()
+      let name = availableNames.popRandom()
+      // TODO
+      let jobTitle = Job().random()
       if let name = name {
-        people.append(Person(name: name, jobTitle: jobTitle))
+        let person = Person(name: name, jobTitle: jobTitle)
+        // Give people random max number of interests
+        person.numberInterests = Int(arc4random_uniform(kNumberMaxInterests) + 1)
+        people.append(person)
       }
     }
   }
@@ -100,17 +106,14 @@ class Game {
   // Interests PART
   func playersShareInterests() {
     var peopleReady = [Person]()
-    // Give people random max number of interests
-    for person in people {
-      person.numberInterests = Int(arc4random_uniform(kNumberMaxInterests) + 1)
-    }
     // Chose a random person and give him a random interest
     while people.count > 0 {
       let personIndex = Int(arc4random_uniform(UInt32(people.count)))
       let person = people[personIndex]
       let interestIndex = Int(arc4random_uniform(UInt32(person.unsharedInterestTitles.count)))
       let title = person.unsharedInterestTitles.remove(at: interestIndex)
-      let comment = Comment.getRandom()
+      // TODO
+      let comment = Comment().random()
       let interest = Interest(title: title, comment: comment)
       person.sharedInterests[title] = interest
       // Make sure the random person does not go over max number of interests
@@ -130,5 +133,4 @@ class Game {
       }
     }
   }
-  
 }
