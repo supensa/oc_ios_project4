@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AvailableNames: Random {
+class AvailableNames: RandomElement {
   
   private var names = [
     "John",

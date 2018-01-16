@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Comment: Random {
+class Comment: RandomElement {
   
   private var comments  = [
     "It helps me relax",

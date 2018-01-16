@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Job: Random {
+class Job: RandomElement {
   
   private var titles = [
     "Fire fighter",
