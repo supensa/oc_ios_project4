@@ -9,39 +9,22 @@
 import Foundation
 
 class Person: Random {
-  var numberInterests = 0
-  var sharedInterests = [Interest]()
-  private var unsharedInterestTitles: [Title] = Title.getAll()
+  private var sharedInterests = [Interest]()
+  private(set) var numberInterests = 0
   
-  private(set) var name: String
+  private(set) var name: PersonName
   private(set) var jobTitle: String
   
-  init(name: String, jobTitle: String, maxNumberInterests: UInt32) {
+  init(name: PersonName, jobTitle: String, maxNumberInterests: Int) {
     self.name = name.capitalized
     self.jobTitle = jobTitle
-    self.numberInterests = randomInterestCount(maxNumberInterests)
+    self.numberInterests = randomCount(count: maxNumberInterests)
   }
   
-  func popRandomUnsharedIntrestTitles() -> Title? {
-    if self.unsharedInterestTitles.isEmpty { return nil }
-    
-    let interestIndex = randomInt(count: self.unsharedInterestTitles.count)
-    return self.unsharedInterestTitles.remove(at: interestIndex)
-  }
-  
-  func isReadyForPairing() -> Bool {
-    if name.isEmpty || jobTitle.isEmpty ||
-      numberInterests > sharedInterests.count {
-      return false
-    }
-    return true
-  }
-  
-  /// Generate a random number
+  /// Add interest to the 'sharedInterests' array
   ///
-  /// - Parameter maxNumberInterests: Maximum possible value of the integer
-  /// - Returns: Random value between 1 and max
-  private func randomInterestCount(_ maxNumberInterests: UInt32) -> Int {
-    return Int(arc4random_uniform(maxNumberInterests) + 1)
+  /// - Parameter interest: interest that might be added
+  func addInterest(_ interest: Interest) {
+    sharedInterests.append(interest)
   }
 }

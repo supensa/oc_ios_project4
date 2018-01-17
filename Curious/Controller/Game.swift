@@ -22,40 +22,16 @@ class Game {
     // Display presentation PART
     displayPlayerIntroduction()
     
-    // Interests PART
-    peopleShareInterests()
-    
-    // Display interests PART
-    displayInterest()
-    
-    // Generate pairs
-    pairPlayers()
-    
     print("\n- THE END -")
   }
   
   // Introduction PART
   private func CreatePeople() {
-    peopleManager.createRandom()
+    peopleManager.generateRandom()
   }
   
   // Display presentation PART
   private func displayPlayerIntroduction() {
     peopleManager.displayIntroduction()
-  }
-  
-  // Interests PART
-  private func peopleShareInterests() {
-    peopleManager.shareRandomInterests()
-  }
-  
-  // Display interests PART
-  private func displayInterest() {
-    
-  }
-  
-  // Generate pairs
-  private func pairPlayers() {
-    
   }
 }

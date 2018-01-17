@@ -16,14 +16,18 @@ class RandomElement: Random {
     data = array
   }
   
+  /// Pop one string out
+  /// Return nil if array is empty
+  ///
+  /// - Returns: Random string from array
   func popRandom() -> String? {
     if data.isEmpty { return nil }
-    let index = randomInt(count: data.count)
+    let index = randomIndex(count: data.count)
     return data.remove(at: index)
   }
   
   func random() -> String {
-    let index = randomInt(count: data.count)
+    let index = randomIndex(count: data.count)
     return data[index]
   }
 }

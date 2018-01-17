@@ -8,5 +8,7 @@
 
 import Foundation
 
-let kMaxNumberInterests: UInt32 = 5
-let kNumberMaxPlayers: UInt32 = 12
+typealias PersonName = String
+
+let kMaxNumberInterests: Int = 5
+let kNumberMaxPlayers: Int = 12

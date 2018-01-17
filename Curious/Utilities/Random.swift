@@ -11,11 +11,19 @@ import Foundation
 protocol Random {}
 
 extension Random {
-  /// Generate a random number
+  /// Generate a random 'index' number
   ///
   /// - Parameter count: Number of integers to chose from
   /// - Returns: Random value between 0 and (count - 1)
-  func randomInt(count: Int = Int.max) -> Int {
+  func randomIndex(count: Int = Int.max) -> Int {
     return Int(arc4random_uniform(UInt32(count)))
+  }
+  
+  /// Generate a random 'count' number
+  ///
+  /// - Parameter count: Number of integers to chose from
+  /// - Returns: Random value between 1 and count
+  func randomCount(count: Int = Int.max) -> Int {
+    return Int(arc4random_uniform(UInt32(count)) + 1)
   }
 }
