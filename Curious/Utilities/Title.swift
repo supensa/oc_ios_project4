@@ -1,5 +1,5 @@
 //
-//  Kind.swift
+//  Title.swift
 //  Curious
 //
 //  Created by Spencer Forrest on 03/01/2018.
@@ -8,30 +8,27 @@
 
 import Foundation
 
-enum Title: String {
-  case ios = "iOS developement"
-  case android = "Android development"
-  case mandarin = "Learning Mandarin"
-  case baordgame = "Playing board games"
-  case movie = "Watching movies"
-  case hiking = "Hiking"
-  case swimming = "Swimming"
-  case travelling = "Travelling"
-  case dancing = "Dancing"
-  case writting = "Writing"
+class Title: RandomElement {
   
-  static func getAll() -> [Title] {
-    return [
-      .ios,
-      .android,
-      .mandarin,
-      .baordgame,
-      .movie,
-      .hiking,
-      .swimming,
-      .travelling,
-      .dancing,
-      .writting
-    ]
+  private var titles = [
+    "iOS developement",
+    "Android development",
+    "Learning Mandarin",
+    "Playing board games",
+    "Watching movies",
+    "Hiking",
+    "Swimming",
+    "Travelling",
+    "Dancing",
+    "Fred",
+    "Writing"
+  ]
+  
+  init() {
+    super.init(array: titles)
+  }
+  
+  func getAll() -> [String] {
+    return self.titles
   }
 }

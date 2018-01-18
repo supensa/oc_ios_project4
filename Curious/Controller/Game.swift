@@ -10,27 +10,24 @@ import Foundation
 
 class Game {
   private var peopleManager = PeopleManager()
-
   
   func start() {
     
     print("Aloha !\nThis the 'Curious Katie' app.")
     
-    // Introduction PART
     CreatePeople()
     
-    // Display presentation PART
     displayPlayerIntroduction()
     
     print("\n- THE END -")
   }
   
-  // Introduction PART
+  /// Introduction
   private func CreatePeople() {
     peopleManager.generateRandom()
   }
   
-  // Display presentation PART
+  /// Presentation
   private func displayPlayerIntroduction() {
     peopleManager.displayIntroduction()
   }

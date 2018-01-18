@@ -12,62 +12,61 @@ import Foundation
 class PeopleManager: Random {
   
   private var people = [Person]()
-  private var unsharedInterestTitles = [PersonName:Array<Title>]()
+  private var personUnsharedTitles = [PersonName:Title]()
   
-  /// Display basic pieces of information concerning each player (unique name and job title).
+  /// Display basic pieces of information concerning each person (unique name, job title and interests).
   func displayIntroduction() {
     for index in 0..<people.count {
+      let person = people[index]
       print("\nInformation of player #\(index + 1):")
-      print("\(people[index].name) : \(people[index].jobTitle)")
+      print("\(person.name) : \(person.job)")
+      person.displaySharedInterests()
     }
   }
   
-  /// Create Random players (Random count, unique names, job titles and interest counts)
+  /// Create Random players (Random count, job titles, interests and unique names)
   func generateRandom() {
     let peopleCount = randomPeopleCount()
-    let availableNames = AvailableNames()
+    let name = Name()
     for _ in 1...peopleCount {
-      guard let name = availableNames.popRandom()
+      guard let person = createRandomPerson(with: name)
         else { continue }
-      unsharedInterestTitles[name] = Title.getAll()
-      let person = createPerson(name: name)
       setupRandomInterets(of: person)
       people.append(person)
     }
+  }
+  
+  /// Create a person with a random job
+  ///
+  /// - Returns: Person
+  private func createRandomPerson(with name: Name) -> Person? {
+    guard let name = name.popRandom()
+      else { return nil }
+    let job = Job().random()
+    return Person(name: name, job: job)
   }
   
   /// Setup random interests of a person
   ///
   /// - Parameter person: Selected person
   private func setupRandomInterets(of person: Person) {
-    let personName = person.name
-    for _ in 1...person.numberInterests {
-      guard let title = popUnsharedInterestTitle(forName: personName) else { continue }
-      let interest = createInterest(title: title)
+    let name = person.name
+    personUnsharedTitles[name] = Title()
+    let interestCount = randomCount(count: kMaxNumberInterests)
+    for _ in 1...interestCount {
+      guard let interest = createRandomInterest(of: name)
+        else { continue }
       person.addInterest(interest)
     }
   }
   
-  /// Pop random unshared interest title for a specific person
+  /// Create an interest with random title and random comment
   ///
-  /// - Parameter name: Name of the person who wants the random title
-  /// - Returns: title
-  private func popUnsharedInterestTitle(forName name: PersonName) -> Title? {
-    guard var titles = unsharedInterestTitles[name]
+  /// - Parameter name: Name of person who will have the interest
+  /// - Returns: Interest
+  private func createRandomInterest(of name: PersonName) -> Interest? {
+    guard let title = personUnsharedTitles[name]?.popRandom()
       else { return nil }
-    if titles.isEmpty { return nil }
-    let count = titles.count
-    let index = randomIndex(count: count)
-    return titles.remove(at: index)
-  }
-  
-  private func createPerson(name: String) -> Person {
-    let name = name
-    let jobTitle = Job().random()
-    return Person(name: name, jobTitle: jobTitle, maxNumberInterests: kMaxNumberInterests)
-  }
-  
-  private func createInterest(title: Title) -> Interest {
     let comment = Comment().random()
     return Interest(title: title, comment: comment)
   }

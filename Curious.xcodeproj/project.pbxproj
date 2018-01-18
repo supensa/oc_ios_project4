@@ -17,7 +17,7 @@
 		596589A9200BE9A9004F1ADE /* PeopleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596589A8200BE9A9004F1ADE /* PeopleManager.swift */; };
 		596589AB200BEA9E004F1ADE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596589AA200BEA9E004F1ADE /* Constant.swift */; };
 		59806F1F1FFC6D28005A8348 /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59806F1E1FFC6D28005A8348 /* Title.swift */; };
-		59A9AE8720078D8D006E263F /* AvailableNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A9AE8620078D8C006E263F /* AvailableNames.swift */; };
+		59A9AE8720078D8D006E263F /* Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A9AE8620078D8C006E263F /* Name.swift */; };
 		59F1F89A1FF0682000F50022 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F1F8991FF0682000F50022 /* Game.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +45,7 @@
 		596589A8200BE9A9004F1ADE /* PeopleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleManager.swift; sourceTree = "<group>"; };
 		596589AA200BEA9E004F1ADE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		59806F1E1FFC6D28005A8348 /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
-		59A9AE8620078D8C006E263F /* AvailableNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableNames.swift; sourceTree = "<group>"; };
+		59A9AE8620078D8C006E263F /* Name.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Name.swift; sourceTree = "<group>"; };
 		59F1F8991FF0682000F50022 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,13 +108,13 @@
 		59799A941FF31E4900614959 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				5942C7392009857100A496B4 /* RandomElement.swift */,
+				596589AA200BEA9E004F1ADE /* Constant.swift */,
 				590B26F5200D69C40016E3E8 /* Random.swift */,
+				5942C7392009857100A496B4 /* RandomElement.swift */,
 				595268371FFEBC0B00FDF889 /* Comment.swift */,
 				595268351FFEB19900FDF889 /* Job.swift */,
-				59A9AE8620078D8C006E263F /* AvailableNames.swift */,
+				59A9AE8620078D8C006E263F /* Name.swift */,
 				59806F1E1FFC6D28005A8348 /* Title.swift */,
-				596589AA200BEA9E004F1ADE /* Constant.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -183,7 +183,7 @@
 				596246021FF0329F00532937 /* Person.swift in Sources */,
 				596245F91FF021F800532937 /* main.swift in Sources */,
 				5942C73A2009857100A496B4 /* RandomElement.swift in Sources */,
-				59A9AE8720078D8D006E263F /* AvailableNames.swift in Sources */,
+				59A9AE8720078D8D006E263F /* Name.swift in Sources */,
 				59F1F89A1FF0682000F50022 /* Game.swift in Sources */,
 				590B26F6200D69C40016E3E8 /* Random.swift in Sources */,
 				596589AB200BEA9E004F1ADE /* Constant.swift in Sources */,

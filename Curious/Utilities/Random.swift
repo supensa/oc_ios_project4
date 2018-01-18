@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Random {}
+protocol Random: AnyObject {}
 
 extension Random {
   /// Generate a random 'index' number

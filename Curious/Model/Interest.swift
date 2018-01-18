@@ -10,10 +10,15 @@ import Foundation
 
 struct Interest {
   
-  var title: Title
+  var title: String
   var comment: String
   
-  init(title: Title, comment: String) {
+  /// Create a Interest
+  ///
+  /// - Parameters:
+  ///   - title: Title of the interest
+  ///   - comment: Comment about the interest.
+  init(title: String, comment: String) {
     self.title = title
     self.comment = comment
   }

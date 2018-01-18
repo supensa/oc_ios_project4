@@ -10,7 +10,7 @@ import Foundation
 
 class Job: RandomElement {
   
-  private var titles = [
+  private var jobs = [
     "Fire fighter",
     "Postman",
     "Policeman",
@@ -26,6 +26,6 @@ class Job: RandomElement {
   ]
   
   init() {
-    super.init(array: titles)
+    super.init(array: jobs)
   }
 }
