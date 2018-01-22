@@ -8,10 +8,10 @@
 
 import Foundation
 
-class Person: Random {
+class Person {
   private var sharedInterests = [Interest]()
   
-  private(set) var name: PersonName
+  private(set) var name: String
   private(set) var job: String
   
   /// Create a person with a ramdom number of interests
@@ -19,7 +19,7 @@ class Person: Random {
   /// - Parameters:
   ///   - name: Name of the person
   ///   - jobTitle: Job title of the person
-  init(name: PersonName, job: String) {
+  init(name: String, job: String) {
     self.name = name.capitalized
     self.job = job
   }
