@@ -96,7 +96,8 @@ class Game {
   /// Create Random players (Random count, job titles, interests and unique names)
   func generateRandom() {
     let peopleCount = Int.random(min: 2, max: 12)
-    let stackNames: Stack = RandomStack<String>(array: self.names)
+    let stackNames = AnyStack(RandomStack<String>(self.names))
+        
     for _ in 1...peopleCount {
       guard let person = createRandomPerson(with: stackNames)
         else { continue }
@@ -118,7 +119,8 @@ class Game {
   /// Create a person with a random job
   ///
   /// - Returns: Person
-  private func createRandomPerson(with names: Stack) -> Person? {
+  // name:Setup Game ?
+  private func createRandomPerson(with names: AnyStack<String>) -> Person? {
     guard let name: String = names.pop(), let job = jobs.random()
       else { return nil }
     return Person(name: name, job: job)

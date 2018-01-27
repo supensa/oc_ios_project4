@@ -9,40 +9,53 @@
 import Foundation
 
 protocol Stack {
-//  associatedtype Element
+  associatedtype Element
   
   /// Push one element in
   ///
   /// - Parameter element: Element to be pushed in
-  func push<Element>(_ element: Element) -> ()
+  func push(_ element: Element) -> ()
   
   /// Pop one element out.
   /// Return nil if the stack is empty
   ///
   /// - Returns: Element from stack
-  func pop<Element>() -> Element?
+  func pop() -> Element?
 }
 
-class RandomStack<Type>: Stack {
+// "Type Erasure" pattern
+class AnyStack<T>: Stack {
+  private let _push: (T) -> ()
+  private let _pop: () -> T?
   
-  private var data: Array<Type>
-  
-  init(array: [Type]) {
-    data = array
+  required init<S: Stack>(_ seq: S) where S.Element == T {
+    _push = seq.push
+    _pop = seq.pop
   }
   
-  func push<Element>(_ element: Element) {
-    if let element = element as? Type {
-      data.append(element)
-    } else {
-      print("ERROR: '\(element)' cannot be added to the stack")
-      print("CAUSE: A '\(type(of: Element.self))' element cannot be appended to a '\(type(of: Type.self))' stack.")
-    }
+  func push(_ element: T) {
+    _push(element)
   }
   
-  func pop<Element>() -> Element? {
+  func pop() -> T? {
+    return _pop()
+  }
+}
+
+class RandomStack<T>: Stack {
+  private var data: [T]
+  
+  required init(_ data: [T]) {
+    self.data = data
+  }
+  
+  func push(_ element: T) {
+    data.append(element)
+  }
+  
+  func pop() -> T? {
     if data.isEmpty { return nil }
     let index = Int.random(min: 0, max: data.count-1)
-    return data.remove(at: index) as? Element
+    return data.remove(at: index)
   }
 }
