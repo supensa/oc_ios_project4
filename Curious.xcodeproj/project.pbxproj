@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		590B26F6200D69C40016E3E8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590B26F5200D69C40016E3E8 /* Int.swift */; };
+    59C99F17201CF0A2008D542F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C99F16201CF0A2008D542F /* Stack.swift */; };
 		5942C73A2009857100A496B4 /* RandomStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5942C7392009857100A496B4 /* RandomStack.swift */; };
 		596245F91FF021F800532937 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596245F81FF021F800532937 /* main.swift */; };
 		596246021FF0329F00532937 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596246011FF0329F00532937 /* Person.swift */; };
@@ -36,6 +37,7 @@
 		596246011FF0329F00532937 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		596246031FF032AA00532937 /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		599B915C201403C100D520A1 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		59C99F16201CF0A2008D542F /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		59F1F8991FF0682000F50022 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 			children = (
 				590B26F5200D69C40016E3E8 /* Int.swift */,
 				599B915C201403C100D520A1 /* Array.swift */,
+				59C99F16201CF0A2008D542F /* Stack.swift */,
 				5942C7392009857100A496B4 /* RandomStack.swift */,
 			);
 			path = Utilities;
@@ -166,6 +169,7 @@
 				596246021FF0329F00532937 /* Person.swift in Sources */,
 				596245F91FF021F800532937 /* main.swift in Sources */,
 				5942C73A2009857100A496B4 /* RandomStack.swift in Sources */,
+				59C99F17201CF0A2008D542F /* Stack.swift in Sources */,
 				59F1F89A1FF0682000F50022 /* Game.swift in Sources */,
 				590B26F6200D69C40016E3E8 /* Int.swift in Sources */,
 				599B915D201403C100D520A1 /* Array.swift in Sources */,
