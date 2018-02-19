@@ -18,4 +18,13 @@ extension Array {
     let index = Int.random(min: 0, max: self.count - 1)
     return self[index]
   }
+  
+  /// Pop a random element from the array
+  ///
+  /// - Returns: Element or nil
+  mutating func randomPop() -> Element? {
+    if self.isEmpty { return nil }
+    let index = Int.random(min: 0, max: self.count-1)
+    return self.remove(at: index)
+  }
 }

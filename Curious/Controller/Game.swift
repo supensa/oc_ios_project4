@@ -13,8 +13,15 @@ class Game {
   private let kMaxNumberInterests: Int = 5
   private let kNumberMaxPlayers: Int = 12
   
-  private var people = [Person]()
-  private var personUnsharedTitles = [String:Array<String>]()
+  typealias Name = String
+  typealias Title = String
+  
+  private var playerNames = [Name]()
+  private var people = [Name:Person]()
+  private var pairing = [Name:Array<Name>]()
+  
+  // TODO Second dictionaey how to fill in default values for beginning
+  private var namesByInterestTitle = [Title:Dictionary<Name,Person>]()
   
   private let comments  = [
     "It helps me relax",
@@ -56,7 +63,7 @@ class Game {
     "Swimming",
     "Travelling",
     "Dancing",
-    "Fred",
+    "Reading",
     "Writing"
   ]
   
@@ -76,40 +83,51 @@ class Game {
   ]
   
   func start() {
-    
     print("Aloha !\nThis the 'Curious Katie' app.\n")
     
     generateRandom()
     displayIntroduction()
-//    pairingPeople()
+    pairingPeople()
+    displayPairs()
     
     print("\n- THE END -")
   }
   
-  func pairingPeople() {
-    for person in people {
-      // TO DO check differences for each person
-      print(person.name)
+  private func displayPairs() {
+    for (name, array) in pairing {
+      print("Name: \(name)")
+      for pair in array {
+        print("\t-> \(pair)")
+      }
     }
   }
   
+  private func pairingPeople() {
+    guard people.count > 0 else { return }
+    
+  }
+  
   /// Create Random players (Random count, job titles, interests and unique names)
-  func generateRandom() {
+  private func generateRandom() {
     let peopleCount = Int.random(min: 2, max: 12)
     let stackNames = AnyStack(RandomStack<String>(self.names))
         
     for _ in 1...peopleCount {
       guard let person = createRandomPerson(with: stackNames)
         else { continue }
-      setupRandomInterets(of: person)
-      people.append(person)
+      let name = person.name
+      playerNames.append(name)
+      people[name] = person
     }
+    
+    setupRandomInterets(from: people)
   }
   
   /// Display basic pieces of information concerning each person (unique name, job title and interests).
-  func displayIntroduction() {
+  private func displayIntroduction() {
     for index in 0..<people.count {
-      let person = people[index]
+      let name = playerNames[index]
+      let person = people[name]!
       print("\nInformation of player #\(index + 1):")
       print("\(person.name) : \(person.job)")
       person.displaySharedInterests()
@@ -129,14 +147,18 @@ class Game {
   /// Setup random interests of a person
   ///
   /// - Parameter person: Selected person
-  private func setupRandomInterets(of person: Person) {
-    let name = person.name
-    personUnsharedTitles[name] = titles
-    let interestCount = Int.random(min: 1, max: kMaxNumberInterests)
-    for _ in 1...interestCount {
-      guard let interest = createRandomInterest(of: name)
-        else { continue }
-      person.addInterest(interest)
+  private func setupRandomInterets(from dictionary: [String:Person]) {
+    for (name, person) in dictionary {
+      let interestCount = Int.random(min: 1, max: kMaxNumberInterests)
+      var unsharedInterest = titles
+      for _ in 1...interestCount {
+        guard let interest = createRandomInterest(title: unsharedInterest.randomPop())
+          else { continue }
+        let title = interest.title
+        if (namesByInterestTitle[title] == nil) { namesByInterestTitle[title] = dictionary }
+        namesByInterestTitle[title]?.removeValue(forKey: name)
+        person.addInterest(interest)
+      }
     }
   }
   
@@ -144,8 +166,8 @@ class Game {
   ///
   /// - Parameter name: Name of person who will have the interest
   /// - Returns: Interest
-  private func createRandomInterest(of name: String) -> Interest? {
-    guard let title = personUnsharedTitles[name]?.random(), let comment: String = comments.random()
+  private func createRandomInterest(title: String?) -> Interest? {
+    guard let title = title, let comment: String = comments.random()
       else { return nil }
     return Interest(title: title, comment: comment)
   }

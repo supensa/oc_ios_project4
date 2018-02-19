@@ -10,7 +10,6 @@ import Foundation
 
 class Person {
   private var sharedInterests = [Interest]()
-  
   private(set) var name: String
   private(set) var job: String
   
@@ -29,6 +28,13 @@ class Person {
   /// - Parameter interest: interest that might be added
   func addInterest(_ interest: Interest) {
     sharedInterests.append(interest)
+  }
+  
+  /// Get the title of the person's interests
+  ///
+  /// - Returns: Array of titles
+  func getTitleInterests() -> [String] {
+    return sharedInterests.map({$0.title})
   }
   
   /// Display each interest of the person
