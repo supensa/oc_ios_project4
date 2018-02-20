@@ -18,10 +18,10 @@ class Game {
   
   private var playerNames = [Name]()
   private var people = [Name:Person]()
-  private var pairing = [Name:Array<Name>]()
+  private var pairing = [Name:[Name]]()
   
   // TODO Second dictionaey how to fill in default values for beginning
-  private var namesByInterestTitle = [Title:Dictionary<Name,Person>]()
+  private var namesForEachInterestTitleUnshared = [Title:Dictionary<Name,Person>]()
   
   private let comments  = [
     "It helps me relax",
@@ -94,6 +94,13 @@ class Game {
   }
   
   private func displayPairs() {
+    print("Pairs:")
+    
+    for (name, person) in people {
+      print("name: \(name)")
+      print("\(person.getTitleInterests())")
+    }
+    
     for (name, array) in pairing {
       print("Name: \(name)")
       for pair in array {
@@ -105,11 +112,42 @@ class Game {
   private func pairingPeople() {
     guard people.count > 0 else { return }
     
+    for name in playerNames {
+      
+      var namePotentialPairs = [String:Int]()
+      
+      if let titles = people[name]?.getTitleInterests() {
+        for i in 0..<titles.count {
+          
+          let title = titles[i]
+          
+          guard let titleDictionary = namesForEachInterestTitleUnshared[title] else { continue }
+          if titleDictionary.isEmpty { continue }
+          
+          for (nameWithoutTitle,_) in titleDictionary {
+            if namePotentialPairs[nameWithoutTitle] == nil {
+              namePotentialPairs[nameWithoutTitle] = 1
+            } else {
+              namePotentialPairs[nameWithoutTitle]! += 1
+            }
+          }
+        }
+        
+        if namePotentialPairs.isEmpty { continue }
+        
+        for (namePotentialPair, totalDifference) in namePotentialPairs {
+          if titles.count == totalDifference {
+            if pairing[name] == nil { pairing[name] = [String]() }
+            pairing[name]?.append(namePotentialPair)
+          }
+        }
+      }
+    }
   }
   
   /// Create Random players (Random count, job titles, interests and unique names)
   private func generateRandom() {
-    let peopleCount = Int.random(min: 2, max: 12)
+    let peopleCount = Int.random(min: 2, max: 2)
     let stackNames = AnyStack(RandomStack<String>(self.names))
         
     for _ in 1...peopleCount {
@@ -155,8 +193,8 @@ class Game {
         guard let interest = createRandomInterest(title: unsharedInterest.randomPop())
           else { continue }
         let title = interest.title
-        if (namesByInterestTitle[title] == nil) { namesByInterestTitle[title] = dictionary }
-        namesByInterestTitle[title]?.removeValue(forKey: name)
+        if (namesForEachInterestTitleUnshared[title] == nil) { namesForEachInterestTitleUnshared[title] = dictionary }
+        namesForEachInterestTitleUnshared[title]?.removeValue(forKey: name)
         person.addInterest(interest)
       }
     }

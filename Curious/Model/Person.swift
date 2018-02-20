@@ -34,7 +34,7 @@ class Person {
   ///
   /// - Returns: Array of titles
   func getTitleInterests() -> [String] {
-    return sharedInterests.map({$0.title})
+    return sharedInterests.map { $0.title }
   }
   
   /// Display each interest of the person
