@@ -94,15 +94,19 @@ class Game {
   }
   
   private func displayPairs() {
-    print("Pairs:")
+    // START DEBUG
+//    for (name, person) in people {
+//      print("\n\(name)")
+//      print("\(person.getTitleInterests())")
+//    }
+    // END DEBUG
     
-    for (name, person) in people {
-      print("name: \(name)")
-      print("\(person.getTitleInterests())")
-    }
+    let sentence = pairing.isEmpty ? "\nThere is no pair." : "\nThe pairs are:"
+    
+    print(sentence)
     
     for (name, array) in pairing {
-      print("Name: \(name)")
+      print("\(name) with:")
       for pair in array {
         print("\t-> \(pair)")
       }
@@ -147,7 +151,7 @@ class Game {
   
   /// Create Random players (Random count, job titles, interests and unique names)
   private func generateRandom() {
-    let peopleCount = Int.random(min: 2, max: 2)
+    let peopleCount = Int.random(min: 2, max: 12)
     let stackNames = AnyStack(RandomStack<String>(self.names))
         
     for _ in 1...peopleCount {
