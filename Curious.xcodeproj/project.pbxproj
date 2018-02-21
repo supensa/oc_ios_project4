@@ -294,6 +294,7 @@
 		596245FD1FF021F800532937 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HT9N5JEKMU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,6 +305,7 @@
 		596245FE1FF021F800532937 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HT9N5JEKMU;
 				PRODUCT_NAME = "$(TARGET_NAME)";

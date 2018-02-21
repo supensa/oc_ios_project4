@@ -52,7 +52,7 @@ class Game {
     if !pairs.isEmpty {
       display(noPairs: noPairs)
     }
-    print("\n")
+    print("")
   }
   
   /// Display the pairs
