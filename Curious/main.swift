@@ -8,4 +8,4 @@
 
 import Foundation
 
-Game().start()
+Game().output()
