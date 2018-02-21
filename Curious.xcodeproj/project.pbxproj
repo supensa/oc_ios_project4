@@ -40,6 +40,7 @@
 		599038BA203D98EF00C2B5C9 /* InterestGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestGenerator.swift; sourceTree = "<group>"; };
 		599038BC203DA7E900C2B5C9 /* PairManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairManager.swift; sourceTree = "<group>"; };
 		599B915C201403C100D520A1 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		59BF31D8203E13BF00AA8EC1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		59F1F8991FF0682000F50022 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +60,7 @@
 			children = (
 				596245F71FF021F800532937 /* Curious */,
 				596245F61FF021F800532937 /* Products */,
+				59BF31D8203E13BF00AA8EC1 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
