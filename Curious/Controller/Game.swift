@@ -87,75 +87,71 @@ class Game {
     
     generateRandom()
     displayIntroduction()
-    pairingPeople()
-    displayPairs()
+    let noPairs = pairingPeople()
+    displayPairs(noPairs)
     
     print("\n- THE END -")
   }
   
-  private func displayPairs() {
-    // START DEBUG
-//    for (name, person) in people {
-//      print("\n\(name)")
-//      print("\(person.getTitleInterests())")
-//    }
-    // END DEBUG
-    
-    let sentence = pairing.isEmpty ? "\nThere is no pair." : "\nThe pairs are:"
-    
+  private func displayPairs(_ noPairs: [Name:Person]?) {
+    let sentence = pairing.isEmpty ? "\nThere is no pair." : "\nThe pairs are:\n"
     print(sentence)
     
     for (name, array) in pairing {
-      print("\(name) with:")
+      print("\t\(name) with:")
       for pair in array {
-        print("\t-> \(pair)")
+        print("\t\t-> \(pair)")
+      }
+    }
+    
+    if let noPairs = noPairs, !noPairs.isEmpty, !pairing.isEmpty {
+      print("\nNo pair found for:")
+      for (name,_) in noPairs {
+        print("\t-> \(name)")
       }
     }
   }
   
-  private func pairingPeople() {
-    guard people.count > 0 else { return }
+  /// Pair people that do not share any common interest
+  private func pairingPeople() -> [String:Person]? {
+    guard people.count > 0 else { return nil }
+    var noPairs = people
     
     for name in playerNames {
       
-      var namePotentialPairs = [String:Int]()
+      guard let titles = people[name]?.getTitleInterests() else { continue }
+      var namePotentialPairs = [Name:Int]()
       
-      if let titles = people[name]?.getTitleInterests() {
-        for i in 0..<titles.count {
-          
-          let title = titles[i]
-          
-          guard let titleDictionary = namesForEachInterestTitleUnshared[title] else { continue }
-          if titleDictionary.isEmpty { continue }
-          
-          for (nameWithoutTitle,_) in titleDictionary {
-            if namePotentialPairs[nameWithoutTitle] == nil {
-              namePotentialPairs[nameWithoutTitle] = 1
-            } else {
-              namePotentialPairs[nameWithoutTitle]! += 1
-            }
-          }
-        }
+      for title in titles{
         
-        if namePotentialPairs.isEmpty { continue }
+        guard let titleDictionary = namesForEachInterestTitleUnshared[title] else { continue }
         
-        for (namePotentialPair, totalDifference) in namePotentialPairs {
-          if titles.count == totalDifference {
-            if pairing[name] == nil { pairing[name] = [String]() }
-            pairing[name]?.append(namePotentialPair)
+        for (nameWithoutTitle,_) in titleDictionary {
+          if namePotentialPairs[nameWithoutTitle] == nil {
+            namePotentialPairs[nameWithoutTitle] = 1
+          } else {
+            namePotentialPairs[nameWithoutTitle]! += 1
           }
         }
       }
+      
+      for (namePotentialPair, totalDifference) in namePotentialPairs {
+        if titles.count == totalDifference {
+          if pairing[name] == nil { pairing[name] = [Name]() }
+          pairing[name]?.append(namePotentialPair)
+          noPairs.removeValue(forKey: name)
+        }
+      }
     }
+    return noPairs
   }
   
-  /// Create Random players (Random count, job titles, interests and unique names)
+  /// Create Random players with interests
   private func generateRandom() {
     let peopleCount = Int.random(min: 2, max: 12)
-    let stackNames = AnyStack(RandomStack<String>(self.names))
-        
+    
     for _ in 1...peopleCount {
-      guard let person = createRandomPerson(with: stackNames)
+      guard let person = createRandomPerson()
         else { continue }
       let name = person.name
       playerNames.append(name)
@@ -178,17 +174,16 @@ class Game {
   
   /// Create a person with a random job
   ///
-  /// - Returns: Person
-  // name:Setup Game ?
-  private func createRandomPerson(with names: AnyStack<String>) -> Person? {
-    guard let name: String = names.pop(), let job = jobs.random()
+  /// - Returns: New person or nil
+  private func createRandomPerson() -> Person? {
+    guard let name: String = names.randomPop(), let job = jobs.random()
       else { return nil }
     return Person(name: name, job: job)
   }
   
   /// Setup random interests of a person
   ///
-  /// - Parameter person: Selected person
+  /// - Parameter dictionary: Selected people
   private func setupRandomInterets(from dictionary: [String:Person]) {
     for (name, person) in dictionary {
       let interestCount = Int.random(min: 1, max: kMaxNumberInterests)
@@ -206,11 +201,12 @@ class Game {
   
   /// Create an interest with random title and random comment
   ///
-  /// - Parameter name: Name of person who will have the interest
-  /// - Returns: Interest
+  /// - Parameter title: title of the new interest
+  /// - Returns: New interest or nil
   private func createRandomInterest(title: String?) -> Interest? {
     guard let title = title, let comment: String = comments.random()
       else { return nil }
     return Interest(title: title, comment: comment)
   }
 }
+
