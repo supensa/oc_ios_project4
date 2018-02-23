@@ -1,2 +1,2 @@
-#  Project4 - iOS-developer path
+#  OpenClassrooms - iOS developer path - Project 4
 
