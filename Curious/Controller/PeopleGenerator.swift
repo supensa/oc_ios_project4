@@ -69,18 +69,25 @@ class PeopleGenerator {
     for _ in 1...peopleCount {
       guard let person = createRandomPerson()
         else { continue }
-      let name = person.name
+      guard let name = generateName()
+        else { continue }
       people[name] = person
       peopleNames.append(name)
     }
+  }
+  
+  func generateName() -> String? {
+    guard let name: String = names.randomPop()
+      else { return nil }
+    return name
   }
   
   /// Create a person with a random job
   ///
   /// - Returns: New person or nil
   private func createRandomPerson() -> Person? {
-    guard let name: String = names.randomPop(), let job = jobs.random()
+    guard let job = jobs.random()
       else { return nil }
-    return Person(name: name, job: job)
+    return Person(job: job)
   }
 }

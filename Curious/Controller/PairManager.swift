@@ -40,13 +40,13 @@ class PairManager {
   ///
   /// - Parameters:
   ///   - people: All the people to pair
-  ///   - peopleForEachUnsharedInterestTitle: Key: Interest title and Value: dictionary of people
-  func setup(people:[String:Person], peoplePerUnsharedInterestTitle: [String:[String:Person]]) {
+  ///   - namesPerUnsharedInterestTitle: Key: Interest title and Value: dictionary of people
+  func setup(people:[String:Person], namesPerUnsharedInterestTitle: [String:Array<String>]) {
     guard people.count > 0 else { return }
     dictionaryNoPair = people
-    for (name,_) in people {
-      guard let titles = people[name]?.getTitleInterests() else { continue }
-      let differenceCountDictionary = countDifferences(titles: titles, peoplePerUnsharedInterestTitle: peoplePerUnsharedInterestTitle)
+    for (name, person) in people {
+      let titles = person.getTitleInterests()
+      let differenceCountDictionary = countDifferences(titles: titles, namesPerUnsharedInterestTitle: namesPerUnsharedInterestTitle)
       pairing(name: name, interestCount: titles.count, differenceCountDictionary: differenceCountDictionary)
     }
   }
@@ -71,13 +71,13 @@ class PairManager {
   ///
   /// - Parameters:
   ///   - titles: Interest titles to check
-  ///   - peopleForEachUnsharedInterestTitle: Key: title interest, value: dictionary of people
+  ///   - namesPerUnsharedInterestTitle: Key: title interest, value: dictionary of people
   /// - Returns: Dictionary with key: person's name and value: count of unshared titles
-  private func countDifferences(titles: [String],peoplePerUnsharedInterestTitle: [String:[String:Person]] ) -> [String:Int] {
+  private func countDifferences(titles: [String], namesPerUnsharedInterestTitle: [String:Array<String>]) -> [String:Int] {
     var differenceCountDictionary = [String:Int]()
     for title in titles {
-      guard let potentialPairs = peoplePerUnsharedInterestTitle[title] else { continue }
-      for (namePotentialPair,_) in potentialPairs {
+      guard let potentialPairs = namesPerUnsharedInterestTitle[title] else { continue }
+      for namePotentialPair in potentialPairs {
         if differenceCountDictionary[namePotentialPair] == nil {
           differenceCountDictionary[namePotentialPair] = 1
         } else {

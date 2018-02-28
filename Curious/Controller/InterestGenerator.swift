@@ -46,9 +46,13 @@ class InterestGenerator {
   
   /// A dictionary that maps unshared interest titles with people
   ///
-  /// - Returns: Dictionary with "interest title" as Key and a dictionary of "people" as value
-  func getPeopleForEachUnsharedInterestTitle() -> [String:Dictionary<String,Person>] {
-    return peopleForEachUnsharedInterestTitle
+  /// - Returns: Dictionary with "interest title" as Key and a Array of people's name as value
+  func getPeopleForEachUnsharedInterestTitle() -> [String:Array<String>] {
+    var dictionary = [String:Array<String>]()
+    for (title, people) in peopleForEachUnsharedInterestTitle {
+      dictionary[title] = people.map { $0.key }
+    }
+    return dictionary
   }
   
   /// Setup random interests of a person

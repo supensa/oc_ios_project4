@@ -10,16 +10,13 @@ import Foundation
 
 class Person {
   private var sharedInterests = [Interest]()
-  private(set) var name: String
   private(set) var job: String
   
   /// Create a person with a ramdom number of interests
   ///
   /// - Parameters:
-  ///   - name: Name of the person
   ///   - jobTitle: Job title of the person
-  init(name: String, job: String) {
-    self.name = name.capitalized
+  init(job: String) {
     self.job = job
   }
   

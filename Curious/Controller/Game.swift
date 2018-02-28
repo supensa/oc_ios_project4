@@ -16,7 +16,7 @@ class Game {
   
   private var people: [String:Person]
   private var peopleNames: [String]
-  private var peoplePerUnsharedInterestTitle: [String:Dictionary<String,Person>]
+  private var namesPerUnsharedInterestTitle: [String:Array<String>]
   private var noPairNames: [String]
   private var pairs: [Pair]
   
@@ -26,9 +26,9 @@ class Game {
     peopleNames = peopleGenerator.getPeopleNames()
     
     interestGenerator.setup(for: people)
-    peoplePerUnsharedInterestTitle = interestGenerator.getPeopleForEachUnsharedInterestTitle()
+    namesPerUnsharedInterestTitle = interestGenerator.getPeopleForEachUnsharedInterestTitle()
     
-    pairManager.setup(people: people, peoplePerUnsharedInterestTitle: peoplePerUnsharedInterestTitle)
+    pairManager.setup(people: people, namesPerUnsharedInterestTitle: namesPerUnsharedInterestTitle)
     noPairNames = pairManager.getNoPairNames()
     pairs = pairManager.getPairs()
   }
@@ -90,7 +90,7 @@ class Game {
       let name = peopleNames[index]
       let person = people[name]!
       print("\nInformation of player #\(index + 1):")
-      print("\(person.name) : \(person.job)")
+      print("\(name) : \(person.job)")
       person.displaySharedInterests()
     }
   }
