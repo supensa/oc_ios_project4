@@ -16,9 +16,9 @@ class Game {
   
   private var people: [String:Person]
   private var peopleNames: [String]
-  private var peopleForEachUnsharedInterestTitle: [String:Dictionary<String,Person>]
-  private var noPairs: [String:Person]
-  private var pairs: [String:Array<String>]
+  private var peoplePerUnsharedInterestTitle: [String:Dictionary<String,Person>]
+  private var noPairNames: [String]
+  private var pairs: [Pair]
   
   init() {
     peopleGenerator.setup()
@@ -26,10 +26,10 @@ class Game {
     peopleNames = peopleGenerator.getPeopleNames()
     
     interestGenerator.setup(for: people)
-    peopleForEachUnsharedInterestTitle = interestGenerator.getPeopleForEachUnsharedInterestTitle()
+    peoplePerUnsharedInterestTitle = interestGenerator.getPeopleForEachUnsharedInterestTitle()
     
-    pairManager.setup(people: people, peopleForEachUnsharedInterestTitle: peopleForEachUnsharedInterestTitle)
-    noPairs = pairManager.getNoPairs()
+    pairManager.setup(people: people, peoplePerUnsharedInterestTitle: peoplePerUnsharedInterestTitle)
+    noPairNames = pairManager.getNoPairNames()
     pairs = pairManager.getPairs()
   }
   
@@ -37,20 +37,20 @@ class Game {
   func output() {
     print("Welcome to the 'Curious Katie' app.\n")
     display(people: people, peopleNames: peopleNames)
-    display(pairs: pairs, noPairs: noPairs)
+    display(pairs: pairs, noPairNames: noPairNames)
   }
   
   /// Display the pairs and the people that could not be paired
   ///
   /// - Parameters:
-  ///   - pairs: Represent people paired
-  ///   - noPairs: List of people with no pair
-  private func display(pairs: [String:[String]], noPairs: [String:Person]?) {
+  ///   - pairs: Represent pairs
+  ///   - noPairs: people not paired
+  private func display(pairs: [Pair], noPairNames: [String]) {
     let sentence = pairs.isEmpty ? "\nThere is no pair." : "\nThe pairs are:\n"
     print(sentence)
     display(pairs: pairs)
     if !pairs.isEmpty {
-      display(noPairs: noPairs)
+      display(noPairNames: noPairNames)
     }
     print("")
   }
@@ -58,11 +58,11 @@ class Game {
   /// Display the pairs
   ///
   /// - Parameter pairs: Represent people paired
-  private func display(pairs: [String:[String]]) {
-    for (name, array) in pairs {
-      print("\t\(name) with:")
-      for pair in array {
-        print("\t\t-> \(pair)")
+  private func display(pairs: [Pair]) {
+    for pair in pairs {
+      print("\t\(pair.personName) with:")
+      for name in pair.pairNames {
+        print("\t\t-> \(name)")
       }
     }
   }
@@ -71,10 +71,10 @@ class Game {
   ///
   /// - Parameters:
   ///   - noPairs: List of people with no pair
-  private func display(noPairs: [String:Person]?) {
-    if let noPairs = noPairs, !noPairs.isEmpty {
+  private func display(noPairNames: [String]?) {
+    if let noPairNames = noPairNames, !noPairNames.isEmpty {
       print("\nNo pair found for:\n")
-      for (name,_) in noPairs {
+      for name in noPairNames {
         print("\t-> \(name)")
       }
     }

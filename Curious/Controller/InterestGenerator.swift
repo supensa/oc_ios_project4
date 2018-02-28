@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// All the logic to generate random interests
 class InterestGenerator {
   
   private let kMaxNumberInterests: Int = 5

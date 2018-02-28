@@ -15,6 +15,7 @@
 		599038BB203D98EF00C2B5C9 /* InterestGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599038BA203D98EF00C2B5C9 /* InterestGenerator.swift */; };
 		599038BD203DA7E900C2B5C9 /* PairManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599038BC203DA7E900C2B5C9 /* PairManager.swift */; };
 		599B915D201403C100D520A1 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599B915C201403C100D520A1 /* Array.swift */; };
+		59A6590220404DB5002CFE52 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A6590120404DB5002CFE52 /* Pair.swift */; };
 		59F1F89A1FF0682000F50022 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F1F8991FF0682000F50022 /* Game.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		599038BA203D98EF00C2B5C9 /* InterestGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestGenerator.swift; sourceTree = "<group>"; };
 		599038BC203DA7E900C2B5C9 /* PairManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairManager.swift; sourceTree = "<group>"; };
 		599B915C201403C100D520A1 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		59A6590120404DB5002CFE52 /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
 		59BF31D8203E13BF00AA8EC1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		59F1F8991FF0682000F50022 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +88,7 @@
 		596245FF1FF0322100532937 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				59A6590120404DB5002CFE52 /* Pair.swift */,
 				596246011FF0329F00532937 /* Person.swift */,
 				596246031FF032AA00532937 /* Interest.swift */,
 			);
@@ -179,6 +182,7 @@
 				599038BD203DA7E900C2B5C9 /* PairManager.swift in Sources */,
 				599B915D201403C100D520A1 /* Array.swift in Sources */,
 				599038BB203D98EF00C2B5C9 /* InterestGenerator.swift in Sources */,
+				59A6590220404DB5002CFE52 /* Pair.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// All the logic to generate random people
 class PeopleGenerator {
   
   private let kNumberMaxPlayers: Int = 12
