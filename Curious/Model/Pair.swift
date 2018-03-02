@@ -10,11 +10,17 @@ import Foundation
 
 /// Name of a person and names of his partner
 class Pair {
-  private(set) var personName: String
-  private(set) var pairNames: [String]
+  private(set) var person: Person
+  private(set) var partner: Person
+  private(set) var interests: [Interest]
   
-  init(personName: String, pairNames: [String]) {
-    self.personName = personName
-    self.pairNames = pairNames
+  init(person: Person, partner: Person, interests: [Interest]) {
+    self.person = person
+    self.partner = partner
+    self.interests = interests
+  }
+  
+  func addInterests(interests: [Interest]) {
+    self.interests.append(contentsOf: interests)
   }
 }

@@ -57,12 +57,12 @@ class Game {
   
   /// Display the pairs
   ///
-  /// - Parameter pairs: Represent people paired
+  /// - Parameter pairs: Represent people paired with interests to talk about
   private func display(pairs: [Pair]) {
     for pair in pairs {
-      print("\t\(pair.personName) with:")
-      for name in pair.pairNames {
-        print("\t\t-> \(name)")
+      print("\t\(pair.person.name) and \(pair.partner.name).\n\tTopic:")
+      for interest in pair.interests {
+        print("\t\t-> \(interest.title)")
       }
     }
   }

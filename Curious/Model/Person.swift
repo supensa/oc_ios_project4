@@ -11,13 +11,16 @@ import Foundation
 class Person {
   private var sharedInterests = [Interest]()
   private(set) var job: String
+  private(set) var name: String
   
   /// Create a person with a ramdom number of interests
   ///
   /// - Parameters:
+  ///   - name: Name of the person
   ///   - jobTitle: Job title of the person
-  init(job: String) {
+  init(name: String, job: String) {
     self.job = job
+    self.name = name
   }
   
   /// Add interest to the 'sharedInterests' array
@@ -30,8 +33,8 @@ class Person {
   /// Get the title of the person's interests
   ///
   /// - Returns: Array of titles
-  func getTitleInterests() -> [String] {
-    return sharedInterests.map { $0.title }
+  func getInterests() -> [Interest] {
+    return sharedInterests
   }
   
   /// Display each interest of the person
