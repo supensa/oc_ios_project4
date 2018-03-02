@@ -14,6 +14,21 @@ class PairManager {
   private var dictionaryNoPair = [String:Person]()
   private var dictionaryPairs = [String:Pair]()
   
+  /// Pair people that do not share any common interest
+  ///
+  /// - Parameters:
+  ///   - people: All the people to pair
+  ///   - namesPerUnsharedInterestTitle: Key: Interest title and Value: dictionary of people
+  func setup(people:[String:Person], peoplePerUnsharedInterestTitle: [String:Array<Person>]) {
+    guard people.count > 0 else { return }
+    dictionaryNoPair = people
+    for (name, person) in people {
+      let interests = person.getInterests()
+      let dictionary = unshareInterestsByName(interests: interests, namesPerUnsharedInterestTitle: peoplePerUnsharedInterestTitle)
+      pairing(name: name, people: people, dictionary: dictionary)
+    }
+  }
+  
   /// Pair and their interest to discuss
   ///
   /// - Returns: Array of "Pair"
@@ -30,21 +45,6 @@ class PairManager {
       noPairNames.append(name)
     }
     return noPairNames
-  }
-  
-  /// Pair people that do not share any common interest
-  ///
-  /// - Parameters:
-  ///   - people: All the people to pair
-  ///   - namesPerUnsharedInterestTitle: Key: Interest title and Value: dictionary of people
-  func setup(people:[String:Person], namesPerUnsharedInterestTitle: [String:Array<String>]) {
-    guard people.count > 0 else { return }
-    dictionaryNoPair = people
-    for (name, person) in people {
-      let interests = person.getInterests()
-      let dictionary = unshareInterestsByName(interests: interests, namesPerUnsharedInterestTitle: namesPerUnsharedInterestTitle)
-      pairing(name: name, people: people, dictionary: dictionary)
-    }
   }
   
   /// Setup dictionary of pairs and list of names without pairs
@@ -72,13 +72,14 @@ class PairManager {
   ///   - titles: Interest titles to check
   ///   - namesPerUnsharedInterestTitle: Key: title interest, value: Array people's names
   /// - Returns: Dictionary with key: person's name and value: Array of interest titles
-  private func unshareInterestsByName(interests: [Interest], namesPerUnsharedInterestTitle: [String:Array<String>]) -> [String:Array<Interest>] {
+  private func unshareInterestsByName(interests: [Interest], namesPerUnsharedInterestTitle: [String:Array<Person>]) -> [String:Array<Interest>] {
     var unshareInterestsByName = [String:Array<Interest>]()
     for interest in interests {
-      guard let potentialPairs = namesPerUnsharedInterestTitle[interest.title] else { continue }
-      for namePotentialPair in potentialPairs {
-        if unshareInterestsByName[namePotentialPair] == nil { unshareInterestsByName[namePotentialPair] = [Interest]() }
-        unshareInterestsByName[namePotentialPair]?.append(interest)
+      guard let Partners = namesPerUnsharedInterestTitle[interest.title] else { continue }
+      for partner in Partners {
+        let partnerName = partner.name
+        if unshareInterestsByName[partnerName] == nil { unshareInterestsByName[partnerName] = [Interest]() }
+        unshareInterestsByName[partnerName]?.append(interest)
       }
     }
     return unshareInterestsByName
