@@ -55,8 +55,8 @@ class PairManager {
   ///   - dictionary: key: person's name and value: Array of interest titles
   private func pairing(name: String, people: [String:Person], dictionary: [String:Array<Interest>]) {
     for (partnerName, interests) in dictionary {
-      let partner = people[partnerName]!
-      let person = people[name]!
+      guard let partner = people[partnerName], let person = people[name]
+        else { continue }
       if let dictionary = dictionaryPairs[partnerName] {
         dictionary.addInterests(interests: interests)
       } else {
