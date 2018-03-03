@@ -70,8 +70,8 @@ class Game {
   ///
   /// - Parameters:
   ///   - noPairs: List of people with no pair
-  private func display(noPairNames: [String]?) {
-    if let noPairNames = noPairNames, !noPairNames.isEmpty {
+  private func display(noPairNames: [String]) {
+    if !noPairNames.isEmpty {
       print("\nNo pair found for:\n")
       for name in noPairNames {
         print("\t-> \(name)")

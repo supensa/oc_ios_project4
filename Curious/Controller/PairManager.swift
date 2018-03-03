@@ -12,7 +12,7 @@ import Foundation
 class PairManager {
   
   private var dictionaryNoPair = [String:Person]()
-  private var dictionaryPairs = [String:Pair]()
+  private var dictionaryPairs = [String:[String:Pair]]()
   
   /// Pair people that do not share any common interest
   ///
@@ -24,16 +24,21 @@ class PairManager {
     dictionaryNoPair = people
     for (name, person) in people {
       let interests = person.getInterests()
-      let dictionary = unshareInterestsByName(interests: interests, namesPerUnsharedInterestTitle: peoplePerUnsharedInterestTitle)
-      pairing(name: name, people: people, dictionary: dictionary)
+      let unsharedPartnerInterestDictionary = unshareInterestsByName(interests: interests, namesPerUnsharedInterestTitle: peoplePerUnsharedInterestTitle)
+      pairing(name: name, people: people, unsharedPartnerInterestDictionary: unsharedPartnerInterestDictionary)
     }
   }
   
-  /// Pair and their interest to discuss
+  /// All the pairs
   ///
   /// - Returns: Array of "Pair"
   func getPairs() -> [Pair] {
-    return dictionaryPairs.map { $0.value }
+    var pairs = [Pair]()
+    for dictionary in dictionaryPairs {
+      let array = dictionary.value.map { $0.value }
+      pairs.append(contentsOf: array)
+    }
+    return pairs
   }
   
   /// All the names of the poeple without any pair
@@ -52,26 +57,55 @@ class PairManager {
   /// - Parameters:
   ///   - name: Name of the person to check
   ///   - people: key: person's name and value: person
-  ///   - dictionary: key: person's name and value: Array of interest titles
-  private func pairing(name: String, people: [String:Person], dictionary: [String:Array<Interest>]) {
-    for (partnerName, interests) in dictionary {
-      guard let partner = people[partnerName], let person = people[name]
-        else { continue }
-      if let dictionary = dictionaryPairs[partnerName] {
-        dictionary.addInterests(interests: interests)
-      } else {
-        dictionaryPairs[name] = Pair.init(person: person, partner: partner, interests: interests)
-      }
-      dictionaryNoPair.removeValue(forKey: person.name)
+  ///   - dictionary: key: person's name and value: Array of interest titles they do not share
+  private func pairing(name: String, people: [String:Person], unsharedPartnerInterestDictionary: [String:Array<Interest>]) {
+    for (partnerName, interests) in unsharedPartnerInterestDictionary {
+      let partner = people[partnerName]!
+      let person = people[name]!
+      
+      updateNoPairs(name: name, partnerName: partnerName)
+      
+      let hasExistingPair = dictionaryPairs[partnerName] != nil
+      updatePair(hasExistingPair: hasExistingPair, person: person, partner: partner, interests: interests)
     }
+  }
+  
+  /// Pair people with topic(s) to discuss
+  ///
+  /// - Parameters:
+  ///   - hasExistingPair: True if two people are already paired
+  ///   - person: person to pair
+  ///   - partner: partner of the person to pair
+  ///   - interests: interests they will talk about
+  private func updatePair(hasExistingPair: Bool, person: Person, partner: Person, interests: [Interest]) {
+    let mainPersonName = hasExistingPair ? partner.name : person.name
+    let secondaryPersonName = hasExistingPair ? person.name : partner.name
+    
+    if dictionaryPairs[mainPersonName] == nil {
+      dictionaryPairs[mainPersonName] = [secondaryPersonName : Pair.init(person: person, partner: partner, interests: interests)]
+    } else if dictionaryPairs[mainPersonName]![secondaryPersonName] == nil {
+      dictionaryPairs[mainPersonName]![secondaryPersonName] = Pair.init(person: person, partner: partner, interests: interests)
+    } else {
+      dictionaryPairs[mainPersonName]![secondaryPersonName]?.addInterests(interests: interests)
+    }
+  }
+  
+  /// Remove people with a pair from the list of people with no pair
+  ///
+  /// - Parameters:
+  ///   - name: name of a person
+  ///   - partnerName: name of his/her pair
+  private func updateNoPairs(name: String, partnerName: String) {
+    dictionaryNoPair.removeValue(forKey: name)
+    dictionaryNoPair.removeValue(forKey: partnerName)
   }
   
   /// Give us the name of the people that don't share those interests
   ///
   /// - Parameters:
-  ///   - titles: Interest titles to check
+  ///   - interests: Interests to check
   ///   - namesPerUnsharedInterestTitle: Key: title interest, value: Array people's names
-  /// - Returns: Dictionary with key: person's name and value: Array of interest titles
+  /// - Returns: Dictionary with key: person's name and value: Array of interests
   private func unshareInterestsByName(interests: [Interest], namesPerUnsharedInterestTitle: [String:Array<Person>]) -> [String:Array<Interest>] {
     var unshareInterestsByName = [String:Array<Interest>]()
     for interest in interests {

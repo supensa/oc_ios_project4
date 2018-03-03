@@ -12,6 +12,7 @@ import Foundation
 class InterestGenerator {
   
   private let kMaxNumberInterests: Int = 5
+  private let kMinNumberInterests: Int = 1
   
   private let comments  = [
     "It helps me relax",
@@ -30,14 +31,14 @@ class InterestGenerator {
   
   private let titles = [
     "iOS developement",
-    "Android development",
-    "Learning Mandarin",
-    "Playing board games",
-    "Watching movies",
-    "Hiking",
-    "Swimming",
-    "Travelling",
-    "Dancing",
+//    "Android development",
+//    "Learning Mandarin",
+//    "Playing board games",
+//    "Watching movies",
+//    "Hiking",
+//    "Swimming",
+//    "Travelling",
+//    "Dancing",
     "Reading",
     "Writing"
   ]
@@ -60,7 +61,7 @@ class InterestGenerator {
   /// - Parameter dictionary: Selected people
   func setup(for dictionary: [String:Person]) {
     for (name, person) in dictionary {
-      let interestCount = Int.random(min: 1, max: kMaxNumberInterests)
+      let interestCount = Int.random(min: kMinNumberInterests, max: kMaxNumberInterests)
       var unsharedInterest = titles
       for _ in 1...interestCount {
         guard let interest = createRandomInterest(title: unsharedInterest.randomPop())

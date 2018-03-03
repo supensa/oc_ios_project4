@@ -12,6 +12,7 @@ import Foundation
 class PeopleGenerator {
   
   private let kNumberMaxPlayers: Int = 12
+  private let kNumberMinPlayers: Int = 2
   
   private let jobs = [
     "Fire fighter",
@@ -64,7 +65,7 @@ class PeopleGenerator {
   ///
   /// - Returns: Dictionary of "person"
   func setup() {
-    let peopleCount = Int.random(min: 2, max: 12)
+    let peopleCount = Int.random(min: kNumberMinPlayers, max: kNumberMaxPlayers)
     
     for _ in 1...peopleCount {
       guard let person = createRandomPerson()
