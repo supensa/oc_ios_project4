@@ -26,7 +26,7 @@ struct Interest {
 
 extension Interest: Hashable {
   var hashValue: Int {
-    return self.title.hashValue
+    return self.title.hashValue &* 16777619
   }
   
   static func == (lhs: Interest, rhs: Interest) -> Bool {

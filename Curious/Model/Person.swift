@@ -51,7 +51,7 @@ class Person {
 
 extension Person: Hashable {
   var hashValue: Int {
-    return self.name.hashValue
+    return self.name.hashValue &* 16777619
   }
   
   static func == (lhs: Person, rhs: Person) -> Bool {

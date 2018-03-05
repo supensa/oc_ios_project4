@@ -14,7 +14,19 @@ class PairManager {
   private var dictionaryNoPair = [String:Person]()
   private var dictionaryPairs = [Person:[Person:Pair]]()
   
-  /// Pair people that do not share any common interest
+  /// All the pairs
+  ///
+  /// - Returns: Array of "Pair"
+  func getPairs() -> [Pair] {
+    var pairs = [Pair]()
+    for dictionary in dictionaryPairs {
+      let array = dictionary.value.map { $0.value }
+      pairs.append(contentsOf: array)
+    }
+    return pairs
+  }
+  
+  /// Setup the pairing mechanism
   ///
   /// - Parameters:
   ///   - people: All the people to pair
@@ -27,24 +39,22 @@ class PairManager {
       for interest in interests {
         guard let partners = namesPerUnsharedInterestTitle[interest] else { continue }
         for partner in partners {
-          updateNoPairs(name: person.name, partnerName: partner.name)
-          let hasExistingPair = dictionaryPairs[partner] != nil
-          updatePair(hasExistingPair: hasExistingPair, person: person, partner: partner, interests: [interest])
+          pairPeople(person: person, partner: partner, interest: interest)
         }
       }
     }
   }
   
-  /// All the pairs
+  /// Update data structures for people with pair and people without
   ///
-  /// - Returns: Array of "Pair"
-  func getPairs() -> [Pair] {
-    var pairs = [Pair]()
-    for dictionary in dictionaryPairs {
-      let array = dictionary.value.map { $0.value }
-      pairs.append(contentsOf: array)
-    }
-    return pairs
+  /// - Parameters:
+  ///   - person: person to pair
+  ///   - partner: Partner who will paired with the person
+  ///   - interest: interest that the person has but not the partner
+  private func pairPeople(person: Person, partner: Person, interest: Interest) {
+    updateNoPairs(name: person.name, partnerName: partner.name)
+    let hasExistingPair = dictionaryPairs[partner] != nil
+    updatePair(hasExistingPair: hasExistingPair, person: person, partner: partner, interests: [interest])
   }
   
   /// All the names of the poeple without any pair
