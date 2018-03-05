@@ -23,3 +23,13 @@ struct Interest {
     self.comment = comment
   }
 }
+
+extension Interest: Hashable {
+  var hashValue: Int {
+    return self.title.hashValue
+  }
+  
+  static func == (lhs: Interest, rhs: Interest) -> Bool {
+    return lhs.title == rhs.title
+  }
+}

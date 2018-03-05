@@ -31,27 +31,27 @@ class InterestGenerator {
   
   private let titles = [
     "iOS developement",
-//    "Android development",
-//    "Learning Mandarin",
-//    "Playing board games",
-//    "Watching movies",
-//    "Hiking",
-//    "Swimming",
-//    "Travelling",
-//    "Dancing",
+    "Android development",
+    "Learning Mandarin",
+    "Playing board games",
+    "Watching movies",
+    "Hiking",
+    "Swimming",
+    "Travelling",
+    "Dancing",
     "Reading",
     "Writing"
   ]
   
-  private var peopleForEachUnsharedInterestTitle = [String:Dictionary<String,Person>]()
+  private var peopleForEachUnsharedInterestTitle = [Interest:Dictionary<String,Person>]()
   
   /// A dictionary that maps unshared interest titles with people
   ///
   /// - Returns: Dictionary with "interest title" as Key and a Array of people's name as value
-  func getPeopleForEachUnsharedInterestTitle() -> [String:Array<Person>] {
-    var dictionary = [String:Array<Person>]()
-    for (title, people) in peopleForEachUnsharedInterestTitle {
-      dictionary[title] = people.map { $0.value }
+  func getnamesPerUnsharedInterestTitle() -> [Interest:Array<Person>] {
+    var dictionary = [Interest:Array<Person>]()
+    for (interest, people) in peopleForEachUnsharedInterestTitle {
+      dictionary[interest] = people.map { $0.value }
     }
     return dictionary
   }
@@ -66,9 +66,8 @@ class InterestGenerator {
       for _ in 1...interestCount {
         guard let interest = createRandomInterest(title: unsharedInterest.randomPop())
           else { continue }
-        let title = interest.title
-        if (peopleForEachUnsharedInterestTitle[title] == nil) { peopleForEachUnsharedInterestTitle[title] = dictionary }
-        peopleForEachUnsharedInterestTitle[title]?.removeValue(forKey: name)
+        if (peopleForEachUnsharedInterestTitle[interest] == nil) { peopleForEachUnsharedInterestTitle[interest] = dictionary }
+        peopleForEachUnsharedInterestTitle[interest]?.removeValue(forKey: name)
         person.addInterest(interest)
       }
     }

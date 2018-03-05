@@ -48,3 +48,13 @@ class Person {
     }
   }
 }
+
+extension Person: Hashable {
+  var hashValue: Int {
+    return self.name.hashValue
+  }
+  
+  static func == (lhs: Person, rhs: Person) -> Bool {
+    return lhs.name == rhs.name
+  }
+}
