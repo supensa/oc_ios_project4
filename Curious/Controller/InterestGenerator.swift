@@ -11,7 +11,7 @@ import Foundation
 /// All the logic to generate random interests
 class InterestGenerator {
   
-  private let kMaxNumberInterests: Int = 5
+  private let kMaxNumberInterests: Int = 3
   private let kMinNumberInterests: Int = 1
   
   private let comments  = [
@@ -31,14 +31,14 @@ class InterestGenerator {
   
   private let titles = [
     "iOS developement",
-    "Android development",
-    "Learning Mandarin",
-    "Playing board games",
-    "Watching movies",
-    "Hiking",
-    "Swimming",
-    "Travelling",
-    "Dancing",
+//    "Android development",
+//    "Learning Mandarin",
+//    "Playing board games",
+//    "Watching movies",
+//    "Hiking",
+//    "Swimming",
+//    "Travelling",
+//    "Dancing",
     "Reading",
     "Writing"
   ]

@@ -11,8 +11,8 @@ import Foundation
 /// All the logic to generate random people
 class PeopleGenerator {
   
-  private let kNumberMaxPlayers: Int = 12
-  private let kNumberMinPlayers: Int = 2
+  private let kNumberMaxPlayers: Int = 3
+  private let kNumberMinPlayers: Int = 3
   
   private let jobs = [
     "Fire fighter",
