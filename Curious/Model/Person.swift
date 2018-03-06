@@ -13,7 +13,7 @@ class Person {
   private(set) var job: String
   private(set) var name: String
   
-  /// Create a person with a ramdom number of interests
+  /// Create a person
   ///
   /// - Parameters:
   ///   - name: Name of the person
@@ -25,19 +25,19 @@ class Person {
   
   /// Add interest to the 'sharedInterests' array
   ///
-  /// - Parameter interest: interest that might be added
+  /// - Parameter interest: interest to add
   func addInterest(_ interest: Interest) {
     sharedInterests.append(interest)
   }
   
-  /// Get the title of the person's interests
+  /// Get the person's interests
   ///
-  /// - Returns: Array of titles
+  /// - Returns: list of interests
   func getInterests() -> [Interest] {
     return sharedInterests
   }
   
-  /// Display each interest of the person
+  /// Display each interest of the person:
   /// -> Title of the interest and a comment
   func displaySharedInterests() {
     let display = sharedInterests.count == 1 ? "Interest" : "Interests"

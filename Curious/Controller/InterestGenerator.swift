@@ -11,7 +11,7 @@ import Foundation
 /// All the logic to generate random interests
 class InterestGenerator {
   
-  private let kMaxNumberInterests: Int = 3
+  private let kMaxNumberInterests: Int = 5
   private let kMinNumberInterests: Int = 1
   
   private let comments  = [
@@ -31,49 +31,62 @@ class InterestGenerator {
   
   private let titles = [
     "iOS developement",
-//    "Android development",
-//    "Learning Mandarin",
-//    "Playing board games",
-//    "Watching movies",
-//    "Hiking",
-//    "Swimming",
-//    "Travelling",
-//    "Dancing",
+    "Android development",
+    "Learning Mandarin",
+    "Playing board games",
+    "Watching movies",
+    "Hiking",
+    "Swimming",
+    "Travelling",
+    "Dancing",
     "Reading",
     "Writing"
   ]
   
-  private var peopleForEachUnsharedInterestTitle = [Interest:Dictionary<String,Person>]()
+  private var peoplePerUnsharedInterest = [Interest:Dictionary<String,Person>]()
   
-  /// A dictionary that maps unshared interest titles with people
+  /// A dictionary which maps unshared interest with people
   ///
-  /// - Returns: Dictionary with "interest title" as Key and a Array of people's name as value
-  func getnamesPerUnsharedInterestTitle() -> [Interest:Array<Person>] {
+  /// - Returns: Dictionary with Key: interest and Value: people who don't share the interest
+  func getPeoplePerUnsharedInterest() -> [Interest:Array<Person>] {
     var dictionary = [Interest:Array<Person>]()
-    for (interest, people) in peopleForEachUnsharedInterestTitle {
+    for (interest, people) in peoplePerUnsharedInterest {
       dictionary[interest] = people.map { $0.value }
     }
     return dictionary
   }
   
-  /// Setup random interests of a person
+  /// Setup random interest(s) of a person
+  /// Keeping track of the interests that are not shared by some people
   ///
-  /// - Parameter dictionary: Selected people
-  func setup(for dictionary: [String:Person]) {
-    for (name, person) in dictionary {
+  /// - Parameter people: Dictionary of people
+  func setup(people: [String:Person]) {
+    for (name, person) in people {
       let interestCount = Int.random(min: kMinNumberInterests, max: kMaxNumberInterests)
       var unsharedInterest = titles
       for _ in 1...interestCount {
         guard let interest = createRandomInterest(title: unsharedInterest.randomPop())
           else { continue }
-        if (peopleForEachUnsharedInterestTitle[interest] == nil) { peopleForEachUnsharedInterestTitle[interest] = dictionary }
-        peopleForEachUnsharedInterestTitle[interest]?.removeValue(forKey: name)
         person.addInterest(interest)
+        updatePeoplePerUnsharedInterest(people: people, interest: interest, name: name)
       }
     }
   }
   
-  /// Create an interest with random title and random comment
+  /// Update the list of people that do not share a specific interest.
+  /// This is done by removing the person known to share this interest
+  /// from a list containing all the people.
+  ///
+  /// - Parameters:
+  ///   - people: List of all people
+  ///   - interest: Specific unshared interest
+  ///   - name: Name of a person sharing that interest
+  func updatePeoplePerUnsharedInterest(people: [String:Person], interest: Interest, name: String) {
+    if (peoplePerUnsharedInterest[interest] == nil) { peoplePerUnsharedInterest[interest] = people }
+    peoplePerUnsharedInterest[interest]?.removeValue(forKey: name)
+  }
+  
+  /// Create an interest with a random title and a random comment
   ///
   /// - Parameter title: title of the new interest
   /// - Returns: New interest or nil

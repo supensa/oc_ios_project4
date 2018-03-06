@@ -8,36 +8,47 @@
 
 import Foundation
 
-/// Manager taking care of pairing people who don't have any interest in common
+/// Manager taking care of pairing people who don't have interests in common
 class PairManager {
   
-  private var dictionaryNoPair = [String:Person]()
-  private var dictionaryPairs = [Person:[Person:Pair]]()
+  private var noPairDictionary = [String:Person]()
+  private var pairDictionary = [Person:[Person:Pair]]()
   
-  /// All the pairs
+  /// All the people paired
   ///
   /// - Returns: Array of "Pair"
   func getPairs() -> [Pair] {
     var pairs = [Pair]()
-    for dictionary in dictionaryPairs {
+    for dictionary in pairDictionary {
       let array = dictionary.value.map { $0.value }
       pairs.append(contentsOf: array)
     }
     return pairs
   }
   
+  /// All the poeple without any pair
+  ///
+  /// - Returns: People with no pair
+  func getNoPairs() -> [Person] {
+    var noPairNames = [Person]()
+    for (_, person) in noPairDictionary {
+      noPairNames.append(person)
+    }
+    return noPairNames
+  }
+  
   /// Setup the pairing mechanism
   ///
   /// - Parameters:
   ///   - people: All the people to pair
-  ///   - namesPerUnsharedInterestTitle: Key: Interest and Value: array of people
-  func setup(people:[String:Person], namesPerUnsharedInterestTitle: [Interest:Array<Person>]) {
+  ///   - peoplePerUnsharedInterest: Key: interest and Value: people who don't share the interest
+  func setup(people:[String:Person], peoplePerUnsharedInterest: [Interest:Array<Person>]) {
     guard people.count > 0 else { return }
-    dictionaryNoPair = people
+    noPairDictionary = people
     for (_, person) in people {
       let interests = person.getInterests()
       for interest in interests {
-        guard let partners = namesPerUnsharedInterestTitle[interest] else { continue }
+        guard let partners = peoplePerUnsharedInterest[interest] else { continue }
         for partner in partners {
           pairPeople(person: person, partner: partner, interest: interest)
         }
@@ -49,42 +60,31 @@ class PairManager {
   ///
   /// - Parameters:
   ///   - person: person to pair
-  ///   - partner: Partner who will paired with the person
+  ///   - partner: partner who will be paired with the person
   ///   - interest: interest that the person has but not the partner
   private func pairPeople(person: Person, partner: Person, interest: Interest) {
     updateNoPairs(name: person.name, partnerName: partner.name)
-    let hasExistingPair = dictionaryPairs[partner] != nil
+    let hasExistingPair = pairDictionary[partner] != nil
     updatePair(hasExistingPair: hasExistingPair, person: person, partner: partner, interests: [interest])
   }
   
-  /// All the names of the poeple without any pair
-  ///
-  /// - Returns: Array of names with no pair
-  func getNoPairNames() -> [String] {
-    var noPairNames = [String]()
-    for (name, _) in dictionaryNoPair {
-      noPairNames.append(name)
-    }
-    return noPairNames
-  }
-  
-  /// Pair people or update their pair with topic(s) to discuss
+  /// Pair people or update their pair with interest(s) to discuss
   ///
   /// - Parameters:
   ///   - hasExistingPair: True if two people are already paired
   ///   - person: person to pair
-  ///   - partner: partner of the person to pair
+  ///   - partner: partner to be paired with the person
   ///   - interests: interests they will talk about
   private func updatePair(hasExistingPair: Bool, person: Person, partner: Person, interests: [Interest]) {
     let mainPersonName = hasExistingPair ? partner : person
     let secondaryPersonName = hasExistingPair ? person : partner
     
-    if dictionaryPairs[mainPersonName] == nil {
-      dictionaryPairs[mainPersonName] = [secondaryPersonName : Pair.init(person: person, partner: partner, interests: interests)]
-    } else if dictionaryPairs[mainPersonName]![secondaryPersonName] == nil {
-      dictionaryPairs[mainPersonName]![secondaryPersonName] = Pair.init(person: person, partner: partner, interests: interests)
+    if pairDictionary[mainPersonName] == nil {
+      pairDictionary[mainPersonName] = [secondaryPersonName : Pair.init(person: person, partner: partner, interests: interests)]
+    } else if pairDictionary[mainPersonName]![secondaryPersonName] == nil {
+      pairDictionary[mainPersonName]![secondaryPersonName] = Pair.init(person: person, partner: partner, interests: interests)
     } else {
-      dictionaryPairs[mainPersonName]![secondaryPersonName]?.addInterests(interests: interests)
+      pairDictionary[mainPersonName]![secondaryPersonName]?.addInterests(interests: interests)
     }
   }
   
@@ -94,7 +94,7 @@ class PairManager {
   ///   - name: name of a person
   ///   - partnerName: name of his/her pair
   private func updateNoPairs(name: String, partnerName: String) {
-    dictionaryNoPair.removeValue(forKey: name)
-    dictionaryNoPair.removeValue(forKey: partnerName)
+    noPairDictionary.removeValue(forKey: name)
+    noPairDictionary.removeValue(forKey: partnerName)
   }
 }

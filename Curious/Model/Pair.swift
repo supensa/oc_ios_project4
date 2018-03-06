@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Name of a person and names of his partner
+/// Represent a person, his partner and their different interest(s)
 class Pair {
   private(set) var person: Person
   private(set) var partner: Person
@@ -19,7 +19,7 @@ class Pair {
     self.partner = partner
     self.interests = interests
   }
-  
+    
   func addInterests(interests: [Interest]) {
     self.interests.append(contentsOf: interests)
   }

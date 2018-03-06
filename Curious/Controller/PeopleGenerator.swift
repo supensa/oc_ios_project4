@@ -11,8 +11,8 @@ import Foundation
 /// All the logic to generate random people
 class PeopleGenerator {
   
-  private let kNumberMaxPlayers: Int = 3
-  private let kNumberMinPlayers: Int = 3
+  private let kNumberMaxPlayers: Int = 12
+  private let kNumberMinPlayers: Int = 2
   
   private let jobs = [
     "Fire fighter",
@@ -49,7 +49,7 @@ class PeopleGenerator {
   
   /// Get all the people generated
   ///
-  /// - Returns: Key: name of person, value: person
+  /// - Returns: Key: name of a person, value: a person
   func getPeople() -> [String:Person] {
     return people
   }
@@ -61,7 +61,7 @@ class PeopleGenerator {
     return peopleNames
   }
   
-  /// Create Random players with interests
+  /// Create Random players
   ///
   /// - Returns: Dictionary of "person"
   func setup() {
