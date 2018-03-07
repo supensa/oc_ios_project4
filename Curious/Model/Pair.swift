@@ -20,7 +20,18 @@ class Pair {
     self.interests = interests
   }
     
+  /// Add new interests to the pair
+  ///
+  /// - Parameter interests: Array of new interests
   func addInterests(interests: [Interest]) {
     self.interests.append(contentsOf: interests)
+  }
+  
+  /// Output information concerning the pair
+  func displayInformation() {
+    print("\t\(self.person.name) and \(self.partner.name).\n\tTopic:")
+    for interest in self.interests {
+      print("\t\t-> \(interest.title)")
+    }
   }
 }

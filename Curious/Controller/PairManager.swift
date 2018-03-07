@@ -11,7 +11,6 @@ import Foundation
 /// Manager taking care of pairing people who don't have interests in common
 class PairManager {
   
-  private var noPairDictionary = [String:Person]()
   private var pairDictionary = [Person:[Person:Pair]]()
   
   /// All the people paired
@@ -26,17 +25,6 @@ class PairManager {
     return pairs
   }
   
-  /// All the poeple without any pair
-  ///
-  /// - Returns: People with no pair
-  func getNoPairs() -> [Person] {
-    var noPairNames = [Person]()
-    for (_, person) in noPairDictionary {
-      noPairNames.append(person)
-    }
-    return noPairNames
-  }
-  
   /// Setup the pairing mechanism
   ///
   /// - Parameters:
@@ -44,7 +32,6 @@ class PairManager {
   ///   - peoplePerUnsharedInterest: Key: interest and Value: people who don't share the interest
   func setup(people:[String:Person], peoplePerUnsharedInterest: [Interest:Array<Person>]) {
     guard people.count > 0 else { return }
-    noPairDictionary = people
     for (_, person) in people {
       let interests = person.getInterests()
       for interest in interests {
@@ -56,14 +43,13 @@ class PairManager {
     }
   }
   
-  /// Update data structures for people with pair and people without
+  /// Update a data structure for people with pairs
   ///
   /// - Parameters:
   ///   - person: person to pair
   ///   - partner: partner who will be paired with the person
   ///   - interest: interest that the person has but not the partner
   private func pairPeople(person: Person, partner: Person, interest: Interest) {
-    updateNoPairs(name: person.name, partnerName: partner.name)
     let hasExistingPair = pairDictionary[partner] != nil
     updatePair(hasExistingPair: hasExistingPair, person: person, partner: partner, interests: [interest])
   }
@@ -86,15 +72,5 @@ class PairManager {
     } else {
       pairDictionary[mainPersonName]![secondaryPersonName]?.addInterests(interests: interests)
     }
-  }
-  
-  /// Remove people with a pair from the list of people with no pair
-  ///
-  /// - Parameters:
-  ///   - name: name of a person
-  ///   - partnerName: name of his/her pair
-  private func updateNoPairs(name: String, partnerName: String) {
-    noPairDictionary.removeValue(forKey: name)
-    noPairDictionary.removeValue(forKey: partnerName)
   }
 }
