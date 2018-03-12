@@ -1,7 +1,5 @@
 #  OpenClassrooms - iOS developer path - Project 4
-
 ## "**Curious Katie**" algoritm
-
 This is a algortim that wil simulate people introducing themselves and then pair them according to the differences in their interests.
 
 "*__A pair__*" is constituted of 2 people and a list of interests that one has but not the other.
