@@ -81,7 +81,7 @@ class InterestGenerator {
   ///   - people: List of all people
   ///   - interest: Specific unshared interest
   ///   - name: Name of a person sharing that interest
-  func updatePeoplePerUnsharedInterest(people: [String:Person], interest: Interest, name: String) {
+  private func updatePeoplePerUnsharedInterest(people: [String:Person], interest: Interest, name: String) {
     if (peoplePerUnsharedInterest[interest] == nil) { peoplePerUnsharedInterest[interest] = people }
     peoplePerUnsharedInterest[interest]?.removeValue(forKey: name)
   }

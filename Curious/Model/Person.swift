@@ -40,6 +40,10 @@ class Person {
   /// Display each interest of the person:
   /// -> Title of the interest and a comment
   func displaySharedInterests() {
+    if sharedInterests.isEmpty {
+      print("No interest found")
+      return
+    }
     let display = sharedInterests.count == 1 ? "Interest" : "Interests"
     print("\t\(display):")
     for interest in sharedInterests {

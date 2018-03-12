@@ -8,4 +8,13 @@
 
 import Foundation
 
-Game().output()
+let game = Game()
+
+// Introduction part
+game.generatePeople()
+game.generatePeopleInterests()
+game.displayIntroduction()
+
+// Pairing part
+game.pairPeople()
+game.displayPairs()
