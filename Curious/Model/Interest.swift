@@ -13,7 +13,7 @@ struct Interest {
   var title: String
   var comment: String
   
-  /// Create a Interest
+  /// Create an Interest
   ///
   /// - Parameters:
   ///   - title: Title of the interest
